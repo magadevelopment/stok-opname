@@ -175,11 +175,21 @@
       </div>
 
       <div class="card">
+        <!-- Tombol Ambil Scan dan Simpan Lokasi diposisikan bersebelahan di sini -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <h3 style="font-size: 0.8rem; font-weight: 600;">Terakhir Di-input</h3>
-          <button class="btn btn-sm" onclick="simpanLokasiLKS()" style="white-space: nowrap; background: #059669; padding: 5px 10px;">
-            Simpan Lokasi
-          </button>
+          <h3 style="font-size: 0.8rem; font-weight: 600; margin: 0;">Terakhir Di-input</h3>
+          <div style="display: flex; gap: 4px;">
+            <button class="btn btn-sm" onclick="captureScanKamera()" style="background: #2563eb; color: white; padding: 5px 10px; display: flex; align-items: center; gap: 4px; font-size: 0.75rem;" title="Ambil Scan Kamera">
+              <svg style="width: 14px; height: 14px; stroke: currentColor; fill: none;" viewBox="0 0 24 24" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+              Ambil Scan
+            </button>
+            <button class="btn btn-sm" onclick="simpanLokasiLKS()" style="white-space: nowrap; background: #059669; padding: 5px 10px; font-size: 0.75rem;">
+              Simpan Lokasi
+            </button>
+          </div>
         </div>
 
         <div class="table-container">
@@ -377,6 +387,7 @@
     <div class="toast-message" id="toast-message">Notifikasi</div>
   </div>
 
+  <!-- Navigasi Bawah (Standard 4 Menu) -->
   <div class="bottom-nav">
     <div class="nav-item active" onclick="switchNav('beranda', 'Beranda')">
       <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -388,14 +399,12 @@
       <span>Master</span>
     </div>
 
-    <div class="nav-item fab-item" onclick="handleBottomNavScanClick()">
-      <div class="fab-button" style="background: #059669;" title="Ambil Scan">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-          <circle cx="12" cy="13" r="4"/>
-        </svg>
-      </div>
-      <span>Ambil Scan</span>
+    <div class="nav-item" onclick="switchNav('scan', 'Scan Data')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+        <circle cx="12" cy="13" r="4"/>
+      </svg>
+      <span>Scan</span>
     </div>
 
     <div class="nav-item" onclick="switchNav('laporan', 'Laporan')">
@@ -444,18 +453,6 @@
       }
 
       refreshUI();
-    }
-
-    function handleBottomNavScanClick() {
-      const viewScanActive = document.getElementById('view-scan').classList.contains('active');
-      
-      if (!viewScanActive) {
-        switchNav('scan', 'Scan Data');
-      } else {
-        if (typeof captureScanKamera === "function") {
-          captureScanKamera();
-        }
-      }
     }
 
     if ('serviceWorker' in navigator) {
